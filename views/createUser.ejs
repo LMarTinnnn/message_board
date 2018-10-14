@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>登录</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/signin.css">
+  </head>
+  
+  <body class="text-center">
+        <form class="form-signin" action="/user/create" method="post" enctype="multipart/form-data">
+             <a href="/"><img class="mb-4" src="/images/123.png" alt="" width="72" height="72"></a>
+            <h1 class="h3 mb-3 font-weight-normal">请注册</h1>
+            <div>
+                <% if(error) { %>
+                    <p class="flash"><%= error %></p>
+                <% } %>
+                <% if(success) { %>
+                    <p class="flash"><%= success %></p>
+                <% } %>
+            </div>
+            <label for="inputEmail" class="sr-only">Email address</label>
+            <input type="text" name="email" class="form-control" placeholder="邮箱" required autofocus>
+            <label class="sr-only">Username</label>
+            <input type="text" name="username" class="form-control" placeholder="用户名" required>
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" name="password" class="form-control" placeholder="密码" required>
+            <label class="sr-only">Avatar</label>
+            <p>头像<input type="file" name="avatar" class="form-control" placeholder="头像" required></p>
+            <div class="checkbox mb-3">
+                <label>
+                <input type="checkbox" value="remember" name="remember"> Remember me
+                </label>
+            </div>
+           
+            <button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
+            <p class="mt-5 mb-3 text-muted">Powered by Express &copy; 2017-2018</p>
+        </form>
+
+        <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script>
+            setTimeout(()=> {
+                $('.flash').hide();
+            }, 1500)
+        </script>
+      </body>
+</html>
