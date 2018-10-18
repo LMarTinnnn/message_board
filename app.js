@@ -13,7 +13,6 @@ const articleModel = require("./models/article")
 //文件上传组件
 const multer  = require('multer')
 var upload = multer({ dest: './public/avatars/'}) //上传处理中间件 会把文件挂载在req.file或files中
-const path = require('path')
 const fs = require('fs')
 
 //routers

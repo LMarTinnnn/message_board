@@ -97,8 +97,8 @@ router.post('/create', upload.single('avatar'), (req, res) => {
         email:email,
         username: username,
         password: sha1(password),
-        //存储文件名
-        avatar: avatar.path.split(path.sep).pop(0)
+        //用path从separator分离成arrary, 仅存储文件名 
+        avatar: avatar.path.split(path.sep).pop(0) 
     }
 
     userModel.create(newUser, (err, user) => {

@@ -4,7 +4,7 @@ body{
 
 div {
     /* border: solid black 1px; */
-    margin: 10px;
+    margin: 10px 10px;
 }
 
 p, 
@@ -26,6 +26,7 @@ div.logo {
 .article {
     margin: 10px auto 10px auto;
     border: 1px black solid;
+    border-radius: 10px;
     width: 40%;
 }
 
@@ -40,7 +41,8 @@ div.logo {
 
 .flash {
     margin: 10px auto 10px auto;
-    border: 1px white solid;
+    border: 5px white solid;
+    border-radius: 5px;
     width: 40%;
     background-color: salmon;
     color: white;
