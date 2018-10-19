@@ -3,49 +3,49 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>留言板</title>
-
         <link rel="stylesheet" href="/css/index.css"> <!-- 此处的路径不能用实际路径 除非app.js中设定路径option-->
     </head>
     <body>
-        <div class="logo">
-            <a href="/"><img src="/images/123.png" alt="test" height="60" width="60"></a>
-            <h3>留言板</h3>
-        </div>
-        <div>
-            <% if(user) { %>
-                <div class="logo">
-                    <img width="60" height="60" src= <%= "/avatars/" + user.avatar %> >
-                    <p>用户名：<%= user.username %> <a href="/user/logout">登出</a></p>
-                </div>
-                
-            <% } else { %>
-                <p>未登录<a href="/user/create">注册</a> <a href="/user/login">登录</a></p>
-            <% } %> 
-        </div>
-        <div>
+        <header>
+            <a href="/"><img class="move_down" src="/images/123.png" alt="test" height="40" width="40"></a>
+            <h3 class="logo_item">留言板</h3>
+        </header>
+        <div class="occupation"></div>
+        <% if(user) { %>
+            <div class="user">
+                <img class="move_down" width="40" height="40" src= <%= "/avatars/" + user.avatar %> >
+                <p class="user_item">用户名：<%= user.username %> <a class="user_item" href="/user/logout">登出</a></p>
+            </div>
+        <% } else { %>
+            <p>未登录<a href="/user/create">注册</a> <a href="/user/login">登录</a></p>
+        <% } %> 
+
+        <div class="content_center">
             <a href="/article/create">添加留言</a>
         </div>
 
         <div>
             <% if(error) { %>
-                <p class="flash"><%= error %></p>
+                <p class="flash error"><%= error %></p>
             <% } %>
             <% if(success) { %>
-                <p class="flash"><%= success %></p>
+                <p class="flash success"><%= success %></p>
             <% } %>
         </div>
 
         <div id="articles">
             
             <% articles.forEach(article => { %>
-                <div class="article">
+                <div class="article content_center">
                     <h1><%= article.title %></h1>
                     <p><%= article.content %></p>
-                    <a href="/article/remove/<%= article._id %>"><button>删除</button></a>
+                    <a href="/article/remove/<%= article._id %>" class="center"><button>删除</button></a>
                 </div>
             <% }); %> 
         </div>
-        <a href="/test">test</a>
+        <a href="/test" class="test">test</a>
+        <a href="/flash_error" class="test">error</a>
+        <a href="/flash_success" class="test">success</a>
         <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
         <script>
             setTimeout(()=> {

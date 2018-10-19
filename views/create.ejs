@@ -6,17 +6,17 @@
         <link rel="stylesheet" href="/css/index.css">
     </head>
     <body>
-        <div class="logo">
-            <a href="/"><img src="/images/123.png" alt="test" height="60" width="60"></a>
-            <h3>留言板</h3>
-        </div>
-
+        <header class="logo">
+            <a href="/"><img class="move_down" src="/images/123.png" alt="test" height="40" width="40"></a>
+            <h3 class="logo_item">留言板</h3>
+        </header>
+        <div class="occupation"></div>
         <div>
             <% if(error) { %>
-                <p class="flash"><%= error %></p>
+                <p class="flash error"><%= error %></p>
             <% } %>
             <% if(success) { %>
-                <p class="flash"><%= success %></p>
+                <p class="flash success"><%= success %></p>
             <% } %>
         </div>
 

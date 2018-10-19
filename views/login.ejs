@@ -17,10 +17,10 @@
             <h1 class="h3 mb-3 font-weight-normal">请登录</h1>
             <div>
                     <% if(error) { %>
-                        <p class="flash"><%= error %></p>
+                        <p class="flash error"><%= error %></p>
                     <% } %>
                     <% if(success) { %>
-                        <p class="flash"><%= success %></p>
+                        <p class="flash success"><%= success %></p>
                     <% } %>
             </div>
             <label for="inputEmail" class="sr-only">Email address</label>

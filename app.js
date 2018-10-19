@@ -80,32 +80,16 @@ app.get('/test', (req, res)=> {
 })
 
 app.post('/test', upload.single('avatar'), (req, res) => {
-    let email = req.body.email
-    let username = req.body.username
-    let password = req.body.password
-    let avatar = req.file
-    try{
-        if(!email.length) {
-            throw new Error('邮箱不能为空')
-        }
-        if(!username.length) {
-            throw new Error('名字不能为空')
-        }
-        if(!password.length) {
-            throw new Error('密码不能为空')
-        }
-        if(!avatar) {
-            throw new Error('头像不能为空')
-        }
-    } catch(err) {
-        //如果注册失败 删除上传的头像
-        if(avatar) {
-            console.log("[FS]: 删除头像")
-            fs.unlink(avatar.path)
-        }
-        req.flash('error', err.message);
-        return res.redirect('back')
-    }
+})
+
+app.get('/flash_error', (req, res)=> {
+    req.flash("error", "test flash");
+    res.redirect('back');
+})
+
+app.get('/flash_success', (req, res)=> {
+    req.flash("success", "test flash");
+    res.redirect('back');
 })
 
 app.post('/test', (req, res) => {
