@@ -3,6 +3,7 @@ const express = require('express');
 const flash = require('connect-flash')
 const bodyParser = require('body-parser')
 const session = require('express-session')
+
 //use mongoStore to automatcially store the session to the db
 const MongoStore = require('connect-mongo')(session);
 const mongoose = require('./models/mongoose')
@@ -71,6 +72,7 @@ app.use('/article', articleRouter);
 app.get('/', (req, res) => {
     articleModel.find({}).sort({_id: -1}).exec((err, articles) => {
         if(err) return next(err)
+        //locals内的变量会被自动用于渲染
         res.locals.articles = articles
         res.render('index');
     })

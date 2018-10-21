@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const articleModel = require("../models/article")
+const checkMiddlewire = require('../middlewires/check')
 
 router.use('/', function(req, res, next) {
     console.log('[express]: Request URL:', req.originalUrl);
@@ -12,12 +13,14 @@ router.use('/', function(req, res, next) {
 );
 
 router.get("/create", (req, res) => {
-    res.render('create');
+    res.render('createArticle');
 })
 
-router.post('/create', (req, res) => {
+router.post('/create', checkMiddlewire.checkLogin, (req, res) => {
+    let anonymous = req.body.anonymous;
     let title = req.body.title;
     let content = req.body.content;
+    let author = req.session.user.username;
 
     //错误检查（按说应该放在页面上进行检查呀）
     //undefined.length 会throw error
@@ -35,9 +38,15 @@ router.post('/create', (req, res) => {
         return res.redirect('back')
     }
 
-    let articleData= {
+    let articleData = {
         title: title,
-        content: content
+        content: content,
+        author: author
+    }
+
+    //设置匿名用户
+    if(anonymous) {
+        articleData.author = "匿名用户"
     }
 
     articleModel.create(articleData, (err, article) => {
@@ -51,7 +60,7 @@ router.post('/create', (req, res) => {
     })
 })
 
-router.get('/remove/:articleID', (req, res) => {
+router.get('/remove/:articleID', checkMiddlewire.checkLogin, (req, res) => {
     const articleID = req.params.articleID
     articleModel.deleteOne({ _id: articleID }).exec((err) =>{
         if(err) next(arr);

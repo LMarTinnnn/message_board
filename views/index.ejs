@@ -38,6 +38,7 @@
             <% articles.forEach(article => { %>
                 <div class="article content_center">
                     <h1><%= article.title %></h1>
+                    <p>作者：<%= article.author %></p>
                     <p><%= article.content %></p>
                     <a href="/article/remove/<%= article._id %>" class="center"><button>删除</button></a>
                 </div>
@@ -50,7 +51,7 @@
         <script>
             setTimeout(()=> {
                 $('.flash').hide();
-            }, 1500)
+            }, 2000)
         </script>
     </body>
 </html>

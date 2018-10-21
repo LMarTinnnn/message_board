@@ -11,6 +11,14 @@
             <h3 class="logo_item">留言板</h3>
         </header>
         <div class="occupation"></div>
+        <% if(user) { %>
+            <div class="user">
+                <img class="move_down" width="40" height="40" src= <%= "/avatars/" + user.avatar %> >
+                <p class="user_item">用户名：<%= user.username %> <a class="user_item" href="/user/logout">登出</a></p>
+            </div>
+        <% } else { %>
+            <p>未登录<a href="/user/create">注册</a> <a href="/user/login">登录</a></p>
+        <% } %> 
         <div>
             <% if(error) { %>
                 <p class="flash error"><%= error %></p>
@@ -30,6 +38,9 @@
                     <label>内容</label>
                     <textarea name="content" rows="15"></textarea>
                 </div>
+                <div>
+                    <input type="checkbox" value="anonymous" name="anonymous"> 匿名
+                </div>
                 <input type="submit" value="发布留言">
             </form>
         </div>
@@ -37,7 +48,7 @@
         <script>
             setTimeout(()=> {
                 $('.flash').hide();
-            }, 1500)
+            }, 2000)
         </script>
     </body>
 </html>

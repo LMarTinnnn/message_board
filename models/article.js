@@ -8,6 +8,10 @@ var articleSchema = mongoose.Schema({
     content: {
         type: 'string',
         required: true
+    },
+    author: {
+        type: 'string',
+        required: true
     }
 });
 

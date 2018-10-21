@@ -1,14 +1,19 @@
 var express = require('express');
 var router = express.Router();
+
+//user 的mongoose model
 var userModel = require('../models/user');
+
 //sha1 用于密码加密
 const sha1 = require('sha1')
 
-//mulert path fs 用于处理头像上传
+//multer path fs 用于处理头像上传
 const multer  = require('multer')
 var upload = multer({ dest: './public/avatars/'}) //上传处理中间件 会把文件挂载在req.file或files中
 const path = require('path')
 const fs = require('fs')
+
+const checkMiddlewire = require('../middlewires/check');
 
 //添加请求日志
 router.use('/', function(req, res, next) {
@@ -20,20 +25,19 @@ router.use('/', function(req, res, next) {
 }
 );
 
-router.get('/create', (req,res) => {
+router.get('/create',checkMiddlewire.checkNotLogin, (req,res) => {
     res.render('createUser')
 })
 
-router.get('/login', (req, res) => {
-    if(req.session.user) {  //如果已经登录， 重定向回之前的界面
-        req.flash('success', "已经登录")
-        res.redirect('back')
-    } else {
-        res.render('login')
-    }
+router.get('/login',checkMiddlewire.checkNotLogin, (req, res) => {
+    // if(req.session.user) {  //如果已经登录， 重定向回之前的界面
+    //     req.flash('success', "已经登录")
+    //     return res.redirect('back')
+    // }
+    res.render('login')
 })
 
-router.post('/login', (req, res)=> {
+router.post('/login',checkMiddlewire.checkNotLogin,(req, res)=> {
     var longMaxAge = req.body.remember;
     var user = {
         email: req.body.email,
@@ -45,10 +49,11 @@ router.post('/login', (req, res)=> {
             req.flash('error', err);
             res.redirect('back')
         } else if(userFounded) {
+            //删除密码等敏感信息
+            delete userFounded.password
             req.session.user = userFounded
             if(longMaxAge) {
                 req.session.cookie.maxAge = 24 * 60 * 60 * 1000  //时长1天
-                console.log("记住我")
             }
             req.flash('success', "登陆成功")
             res.redirect('/')
@@ -59,14 +64,15 @@ router.post('/login', (req, res)=> {
     })
 })
 
-router.get('/logout', (req, res) => {
+router.get('/logout', checkMiddlewire.checkLogin, (req, res) => {
     req.session.user = null
     req.session.userName = null
     req.flash("success", "登出成功")
     res.redirect('/')
 })
 
-router.post('/create', upload.single('avatar'), (req, res) => {
+router.post('/create', checkMiddlewire.checkNotLogin, upload.single('avatar'), (req, res) => {
+    var longMaxAge = req.body.remember;
     let email = req.body.email
     let username = req.body.username
     let password = req.body.password
@@ -110,6 +116,10 @@ router.post('/create', upload.single('avatar'), (req, res) => {
             //删除密码等敏感信息后讲user存入session中
             delete user.password
             req.session.user = user
+            //记住
+            if(longMaxAge) {
+                req.session.cookie.maxAge = 24 * 60 * 60 * 1000  //时长1天
+            }
             req.flash('sucess', "创建成功")
             res.redirect('/')
         }
