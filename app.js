@@ -63,6 +63,7 @@ app.use((req, res, next) => {
     next();
 })
 
+
 //添加路由
 app.use('/user', userRouter);
 app.use('/article', articleRouter);
@@ -97,6 +98,17 @@ app.post('/test', (req, res) => {
     res.send("ok")
 })
 
+
+//404
+app.use(function (req, res, next) {
+    if (!res.headersSent) {
+      res.status(404).render('404', {
+          title: "404Error"
+      })
+    } else {
+        next();
+    }
+})
 
 //监听80端口的请求
 app.listen(80)

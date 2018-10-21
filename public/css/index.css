@@ -61,7 +61,7 @@ header {
     margin: 10px auto 10px auto;
     border: 1px black solid;
     border-radius: 10px;
-    width: 40%;
+    width: 50%;
 }
 
 .article h1 {
@@ -94,4 +94,6 @@ header {
 .test {
     width: 50px;
     float: right;
+    margin: 10px 10px;
+    display: inline-block;
 }
