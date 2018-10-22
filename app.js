@@ -1,4 +1,3 @@
-//require 库文件
 const express = require('express');
 const flash = require('connect-flash')
 const bodyParser = require('body-parser')
@@ -8,15 +7,8 @@ const session = require('express-session')
 const MongoStore = require('connect-mongo')(session);
 const mongoose = require('./models/mongoose')
 
-//database model
-const articleModel = require("./models/article")
-
-//文件上传组件
-const multer  = require('multer')
-var upload = multer({ dest: './public/avatars/'}) //上传处理中间件 会把文件挂载在req.file或files中
-const fs = require('fs')
-
 //routers
+const indexRouter = require('./routes/index')
 const userRouter = require('./routes/user_router')
 const articleRouter  = require('./routes/article_router')
 
@@ -26,8 +18,10 @@ var app = express();
 
 //开放静态文件夹 public
 app.use(express.static('public'));
+//example ./public/images/123.png 
+//在html中的路径为/images/123.png
 
-//cookie
+//set cookie
 app.use(session({
     cookie: {
         path: '/', 
@@ -66,24 +60,15 @@ app.use((req, res, next) => {
 
 
 //添加路由
+app.use('/', indexRouter);
 app.use('/user', userRouter);
 app.use('/article', articleRouter);
 
-app.get('/', (req, res) => {
-    articleModel.find({}).sort({_id: -1}).exec((err, articles) => {
-        if(err) return next(err)
-        //locals内的变量会被自动用于渲染
-        res.locals.articles = articles
-        res.render('index');
-    })
-})
-
+//暂时挂在app下的一些路由
 app.get('/test', (req, res)=> {
     res.render('test');
 })
 
-app.post('/test', upload.single('avatar'), (req, res) => {
-})
 
 app.get('/flash_error', (req, res)=> {
     req.flash("error", "test flash");
@@ -94,12 +79,6 @@ app.get('/flash_success', (req, res)=> {
     req.flash("success", "test flash");
     res.redirect('back');
 })
-
-app.post('/test', (req, res) => {
-    console.log(req.body)
-    res.send("ok")
-})
-
 
 //404
 app.use(function (req, res, next) {

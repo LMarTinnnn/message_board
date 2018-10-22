@@ -38,9 +38,12 @@
             <% articles.forEach(article => { %>
                 <div class="article content_center">
                     <h1><%= article.title %></h1>
-                    <p>作者：<%= article.author %></p>
+                    <div class="user">
+                        <p class="user_item">作者：<img class="move_down2" width="20" height="20" src= <%= "/avatars/" +  article.authorAvatar%> > &nbsp;<%= article.author %></p>
+                        
+                    </div>
                     <p><%= article.content %></p>
-                    <a href="/article/remove/<%= article._id %>" class="center"><button>删除</button></a>
+                    <a href="/article/remove/<%= article._id %>" class="center"><button id="delete">删除</button></a>
                 </div>
             <% }); %> 
         </div>

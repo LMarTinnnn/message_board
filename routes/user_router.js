@@ -9,7 +9,9 @@ const sha1 = require('sha1')
 
 //multer path fs 用于处理头像上传
 const multer  = require('multer')
-var upload = multer({ dest: './public/avatars/'}) //上传处理中间件 会把文件挂载在req.file或files中
+//上传处理中间件 会把文件挂载在req.file或files中
+//存储路径是./public/avatars/
+var upload = multer({ dest: './public/avatars/'}) 
 const path = require('path')
 const fs = require('fs')
 
@@ -72,6 +74,7 @@ router.get('/logout', checkMiddlewire.checkLogin, (req, res) => {
 })
 
 router.post('/create', checkMiddlewire.checkNotLogin, upload.single('avatar'), (req, res) => {
+    //upload.single('avatar')的意思是， 接受单个文件上传， 文件在html上的name是avatar
     var longMaxAge = req.body.remember;
     let email = req.body.email
     let username = req.body.username

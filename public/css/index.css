@@ -53,12 +53,18 @@ header {
     top: 10px;
 }
 
+.move_down2 {
+    position: relative;
+    top: 8px;
+}
+
 .user_item {
     display: inline-block;
 }
 
 .article {
-    margin: 10px auto 10px auto;
+    margin: 10px auto;
+    padding: 10px;
     border: 1px black solid;
     border-radius: 10px;
     width: 50%;
@@ -71,6 +77,18 @@ header {
 
 .article p {
     text-align: center;
+    font-size: 20px;
+}
+
+.article .user {
+    height: 30px;
+    margin-top:0px;
+    margin-bottom: 15px;
+}
+
+.article .user p {
+    font-size: 10px;
+    color: #656565;
 }
 
 .flash {
@@ -96,4 +114,11 @@ header {
     float: right;
     margin: 10px 10px;
     display: inline-block;
+}
+
+#delete {
+    background-color: #e26a54;
+    border: white 2px solid;
+    border-radius: 15%;
+    color: #fff;
 }
