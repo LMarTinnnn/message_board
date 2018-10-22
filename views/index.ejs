@@ -22,6 +22,9 @@
 
         <div class="content_center">
             <a href="/article/create">添加留言</a>
+            <% if(!user) { %>
+                <p class="suggestion">没有开放游客留言和删除的权限，可以使用admin进行登录（账号密码都是admin） 或者随便注册一个</p>
+            <% } %>
         </div>
 
         <div>

@@ -123,3 +123,10 @@ header {
     border-radius: 15%;
     color: #fff;
 }
+
+.suggestion {
+    color: #656565;
+    margin: 0px;
+    padding: 0px;
+    font-size: 13px;
+}

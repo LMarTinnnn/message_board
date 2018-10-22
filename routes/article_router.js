@@ -12,7 +12,7 @@ router.use('/', function(req, res, next) {
 }
 );
 
-router.get("/create", (req, res) => {
+router.get("/create", checkMiddlewire.checkLogin, (req, res) => {
     res.render('createArticle');
 })
 
