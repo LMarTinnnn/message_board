@@ -84,6 +84,7 @@ header {
     height: 30px;
     margin-top:0px;
     margin-bottom: 15px;
+    width: 100%;
 }
 
 .article .user p {

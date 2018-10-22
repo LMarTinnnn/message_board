@@ -9,9 +9,9 @@ const articleModel = require('../models/article')
 router.get('/', (req, res) => {
     articleModel.find({}).sort({_id: -1}).exec((err, articles) => {
         if(err) return next(err)
+        
         //用于把新建的异步Promise装起来等待Promise.All 
         let promises = [];
-
         //此处用for of 会有奇怪的bug 暂时没搞懂为什么
         articles.forEach(article => {
             promises.push(new Promise((resolve, reject) => {
