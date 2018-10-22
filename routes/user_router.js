@@ -75,6 +75,7 @@ router.get('/logout', checkMiddlewire.checkLogin, (req, res) => {
 
 router.post('/create', checkMiddlewire.checkNotLogin, upload.single('avatar'), (req, res) => {
     //upload.single('avatar')的意思是， 接受单个文件上传， 文件在html上的name是avatar
+    //.single时文件挂在req.file上
     var longMaxAge = req.body.remember;
     let email = req.body.email
     let username = req.body.username
