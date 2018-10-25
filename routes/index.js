@@ -14,6 +14,7 @@ router.get('/', (req, res) => {
         let promises = [];
         //此处用for of 会有奇怪的bug 暂时没搞懂为什么
         articles.forEach(article => {
+            //把生成的Promise对象丢到promises里等待处理
             promises.push(new Promise((resolve, reject) => {
                 //findOne返回的是user对象， find 返回的是user对象的array
                 console.log(article.author)
@@ -32,7 +33,6 @@ router.get('/', (req, res) => {
                 })
             }))
         });
-
         //Promise.all只有子promise全都执行完 才会执行resolve 也就是 .then中的回调函数
         //一旦有一个子promise执行失败 停止执行其他的 直接去.catch
         

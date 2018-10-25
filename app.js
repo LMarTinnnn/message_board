@@ -64,6 +64,10 @@ app.use('/', indexRouter);
 app.use('/user', userRouter);
 app.use('/article', articleRouter);
 
+app.get('/home', (req, res)=> {
+    res.render('home')
+})
+
 //暂时挂在app下的一些路由
 app.get('/test', (req, res)=> {
     res.render('test');
